@@ -4,7 +4,7 @@ export default class Tasks {
   }
 
   add(descr, compl, index) {
-    this.tasks = [...this.tasks, { description: descr, completed: compl, index: index }];
+    this.tasks = [...this.tasks, { description: descr, completed: compl, index }];
   }
 
   size() {
@@ -12,7 +12,6 @@ export default class Tasks {
   }
 
   idxTask(num) {
-    return this.tasks.filter(task => task.index === num)[0];
+    return this.tasks.filter((task) => task.index === num)[0];
   }
-
 }

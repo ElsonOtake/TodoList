@@ -52,7 +52,7 @@ label {
 }
 
 .material-icons-outlined {
-  height: fit-content;
+  height: min-content;
   cursor: pointer;
   font-size: 18px;
   color: gray;

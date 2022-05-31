@@ -21,18 +21,19 @@ const listTasks = (tasks) => {
   li2.appendChild(span3);
   ul.appendChild(li2);
 
-  var description, completed, index;
+  let description; let completed; let
+    index;
   for (let i = 1; i <= tasks.size(); i += 1) {
     ({ description, completed, index } = tasks.idxTask(i));
     const li3 = document.createElement('li');
     const span4 = document.createElement('span');
     const input = document.createElement('input');
     input.type = 'checkbox';
-    input.id = 'x' + index;
+    input.id = `x${index}`;
     input.checked = completed;
     span4.appendChild(input);
     const label = document.createElement('label');
-    label.htmlFor = 'x' + index;
+    label.htmlFor = `x${index}`;
     label.innerText = description;
     span4.appendChild(label);
     li3.appendChild(span4);
