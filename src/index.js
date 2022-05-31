@@ -1,36 +1,13 @@
-import _ from 'lodash';
+import listTasks from './list_tasks.js';
 import './style.css';
+import Tasks from './tasks.js';
 
-const tasks = [{
-  description: 'wash the dishes',
-  completed: false,
-  index: 0
-}, {
-  description: 'complete the Todo project',
-  completed: false,
-  index: 1
-}, {
-  description: 'walk the dog',
-  completed: false,
-  index: 2
-}, {
-  description: 'fix car',
-  completed: false,
-  index: 3
-}, {
-  description: 'do the laundry',
-  completed: false,
-  index: 4
-}];
+const todo = new Tasks();
 
-// function component() {
-//   const element = document.createElement('div');
+todo.add('wash the dishes', false, 1);
+todo.add('complete the Todo project', false, 2);
+todo.add('walk the dog', true, 3);
+todo.add('fix car', false, 4);
+todo.add('do the laundry', true, 5);
 
-//   // Lodash, now imported by this script
-//   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-//   element.classList.add('hello');
-
-//   return element;
-// }
-
-// document.body.appendChild(component());
+listTasks(todo);

@@ -51,14 +51,9 @@ label {
   padding-left: 10px;
 }
 
-.material-icons-outlined.md-18 {
-  font-size: 18px;
-}
-
-.material-icons-outlined.gray {
-  color: gray;
-}
-
 .material-icons-outlined {
   height: fit-content;
+  cursor: pointer;
+  font-size: 18px;
+  color: gray;
 }
