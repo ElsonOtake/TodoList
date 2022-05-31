@@ -19,6 +19,7 @@ li {
   border-bottom: 1px solid gray;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 li:first-child {
@@ -26,18 +27,23 @@ li:first-child {
 }
 
 li:nth-child(2) {
-  padding: 0;
+  padding: 0 20px 0 0;
 }
 
 li:last-child {
-  text-align: center;
   background-color: rgb(220, 224, 224);
   border-bottom: none;
+  display: flex;
+  justify-content: center;
+}
+
+li:last-child span:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 textarea {
   border: none;
-  width: 80%;
   resize: none;
   outline: none;
   padding: 12px;
@@ -48,22 +54,14 @@ label {
   padding-left: 10px;
 }
 
-.material-icons-outlined.md-48 {
-  font-size: 48px;
+.material-icons-outlined.md-18 {
+  font-size: 18px;
 }
 
-.material-icons-outlined.red242 {
-  color: #ec5242;
+.material-icons-outlined.gray {
+  color: gray;
 }
 
-.material-symbols-outlined.md-48 {
-  font-size: 48px;
-}
-
-.material-symbols-outlined.whitefff {
-  color: #fff;
-}
-
-.material-symbols-outlined {
-  font-variation-settings: 'wght' 100;
+.material-icons-outlined {
+  height: fit-content;
 }
