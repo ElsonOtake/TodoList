@@ -17,6 +17,8 @@ ul {
 li {
   padding: 20px;
   border-bottom: 1px solid gray;
+  display: flex;
+  justify-content: space-between;
 }
 
 li:first-child {
@@ -44,4 +46,24 @@ textarea {
 
 label {
   padding-left: 10px;
+}
+
+.material-icons-outlined.md-48 {
+  font-size: 48px;
+}
+
+.material-icons-outlined.red242 {
+  color: #ec5242;
+}
+
+.material-symbols-outlined.md-48 {
+  font-size: 48px;
+}
+
+.material-symbols-outlined.whitefff {
+  color: #fff;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'wght' 100;
 }
