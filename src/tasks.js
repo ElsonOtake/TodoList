@@ -10,6 +10,19 @@ export default class Tasks {
       index: this.size() + 1 }];
   }
 
+  delete(num) {
+    this.tasks = this.tasks.filter((task) => task.index !== num);
+    this.tasks.forEach((task) => {
+      if (task.index > num) {
+        this.idxMinusOne(task);
+      }
+    })
+  }
+
+  idxMinusOne(task) {
+    task.index -= 1;
+  }
+
   size() {
     return this.tasks.length;
   }

@@ -9,5 +9,6 @@ todo.create('complete the Todo project');
 todo.create('walk the dog');
 todo.create('fix car');
 todo.create('do the laundry');
+todo.delete(2);
 
 listTasks(todo);
