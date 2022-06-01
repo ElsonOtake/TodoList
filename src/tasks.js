@@ -12,15 +12,13 @@ export default class Tasks {
 
   delete(num) {
     this.tasks = this.tasks.filter((task) => task.index !== num);
-    this.tasks.forEach((task) => {
-      if (task.index > num) {
-        this.idxMinusOne(task);
-      }
-    })
+    for (let i = num; i <= this.size(); i += 1) {
+      this.idxMinusOne(i);
+    }
   }
 
-  idxMinusOne(task) {
-    task.index -= 1;
+  idxMinusOne (num) {
+    this.tasks[num - 1].index -= 1;
   }
 
   size() {
