@@ -44,7 +44,9 @@ Cloning a repository
 
 - Type git clone, and then paste the URL you copied earlier : $ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY;
 
-- Press Enter to create your local clone.
+- run `npm install` to install all dependencies;
+
+- run `npm run start` to start the application locally.
 
 
 ## Author
