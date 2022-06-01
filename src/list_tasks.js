@@ -24,10 +24,14 @@ const listTasks = (tasks) => {
     input2.addEventListener('click', (e) => {
       if (e.target.readOnly) {
         e.target.readOnly = false;
-      } else {
-        tasks.update(e.target.value, index);
       }
     });
+    input2.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        tasks.update(e.target.value, index);
+        listTasks(tasks);
+      }
+    })
     li1.appendChild(span1);
 
     const span2 = document.createElement('span');
@@ -37,6 +41,7 @@ const listTasks = (tasks) => {
     span2.addEventListener('click', (e) => {
       if (e.target.previousSibling.lastChild.value === '') {
         tasks.delete(index);
+        listTasks(tasks);
       }
     })
     // const span3 = document.createElement('span');
@@ -52,6 +57,14 @@ const listTasks = (tasks) => {
   li2.appendChild(span4);
   ul.appendChild(li2);
 
+  const addToList = document.querySelector('.add_to_list input');
+  addToList.addEventListener('keypress', (e) => {
+
+    if (e.key === 'Enter') {
+        tasks.create(addToList.value);
+        listTasks(tasks);
+    }
+  })
 };
 
 export default listTasks;
