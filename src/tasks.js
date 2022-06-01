@@ -21,6 +21,10 @@ export default class Tasks {
     this.tasks[num - 1].description = str;
   }
 
+  completedToggle (num) {
+    this.tasks[num - 1].completed = !this.tasks[num - 1].completed;
+  }
+
   idxMinusOne (num) {
     this.tasks[num - 1].index -= 1;
   }
