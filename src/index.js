@@ -10,5 +10,6 @@ todo.create('walk the dog');
 todo.create('fix car');
 todo.create('do the laundry');
 todo.delete(2);
+todo.update('debug webpack setup', 4);
 
 listTasks(todo);

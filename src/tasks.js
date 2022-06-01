@@ -17,6 +17,10 @@ export default class Tasks {
     }
   }
 
+  update(str, num) {
+    this.tasks[num - 1].description = str;
+  }
+
   idxMinusOne (num) {
     this.tasks[num - 1].index -= 1;
   }
