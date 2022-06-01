@@ -34,6 +34,6 @@ export default class Tasks {
   }
 
   idxTask(num) {
-    return this.tasks.filter((task) => task.index === num)[0];
+    return this.tasks[num - 1];
   }
 }
