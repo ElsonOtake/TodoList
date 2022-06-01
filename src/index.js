@@ -4,10 +4,10 @@ import Tasks from './tasks.js';
 
 const todo = new Tasks();
 
-todo.add('wash the dishes', false, 1);
-todo.add('complete the Todo project', false, 2);
-todo.add('walk the dog', true, 3);
-todo.add('fix car', false, 4);
-todo.add('do the laundry', true, 5);
+todo.create('wash the dishes');
+todo.create('complete the Todo project');
+todo.create('walk the dog');
+todo.create('fix car');
+todo.create('do the laundry');
 
 listTasks(todo);

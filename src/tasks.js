@@ -3,8 +3,11 @@ export default class Tasks {
     this.tasks = [];
   }
 
-  add(descr, compl, index) {
-    this.tasks = [...this.tasks, { description: descr, completed: compl, index }];
+  create(descr) {
+    this.tasks = [...this.tasks, { 
+      description: descr, 
+      completed: false, 
+      index: this.size() + 1 }];
   }
 
   size() {
