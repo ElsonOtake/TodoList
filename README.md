@@ -40,11 +40,11 @@ Cloning a repository
 
 - Copy the URL to clone the repository, the options o using are: 
 
-  - HTTPS : https://github.com/ElsonOtake/TodoList.git
+  - HTTPS : `https://github.com/ElsonOtake/TodoList.git`
 
-  - SSH key : git@github.com:ElsonOtake/TodoList.git
+  - SSH key : `git@github.com:ElsonOtake/TodoList.git`
 
-  - GitHub CLI : gh repo clone ElsonOtake/TodoList
+  - GitHub CLI : `gh repo clone ElsonOtake/TodoList`
 
 - Open TerminalTerminalGit Bash;
 
