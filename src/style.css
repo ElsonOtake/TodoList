@@ -1,5 +1,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 ul {
@@ -38,17 +40,35 @@ li:last-child span:hover {
   cursor: pointer;
 }
 
-textarea {
-  font-family: Arial, Helvetica, sans-serif;
-  border: none;
-  resize: none;
-  outline: none;
-  padding: 12px;
-  margin: 12px 0 0 12px;
+.add_to_list input {
+  padding: 20px;
 }
 
-label {
-  padding-left: 10px;
+.task_line .task_unit {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.task_line .delete_outline {
+  display: none;
+}
+
+.task_line .delete_outline.active {
+  display: inline;
+}
+
+.task_line .more_vert {
+  display: none;
+}
+
+.task_line .more_vert.active {
+  display: inline;
+}
+
+.task_unit .description.done {
+  text-decoration: line-through;
 }
 
 .material-icons-outlined {
@@ -56,4 +76,15 @@ label {
   cursor: pointer;
   font-size: 18px;
   color: gray;
+}
+
+input[type=text] {
+  outline: none;
+  border: none;
+  width: 100%;
+}
+
+input[type=checkbox] {
+  margin: 0 10px 0 0;
+  padding: 0;
 }
