@@ -2,6 +2,8 @@
 
 >"To-do list" is a tool that helps to organize the day. It simply lists the things that need to be done and allows to mark them as complete. 
 This project were developed using ES6 and Webpack.
+The CRUD (create, update, delete) methods were implemented.
+All changes to the To Do List are saved in local storage.
 
 
 ## Built With
@@ -12,7 +14,6 @@ This project were developed using ES6 and Webpack.
 - Git
 - Webpack
 - npm
-- Lodash
 
 
 ## Live Demo (if available)
@@ -74,6 +75,7 @@ Give a ⭐️ if you like this project!
 
 - Microverse
 - W3Schools
+- Stack Overflow
 
 
 ## 📝 License
