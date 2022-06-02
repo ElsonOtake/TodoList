@@ -42,14 +42,7 @@ const listTasks = (tasks) => {
     const input1 = document.createElement('input');
     input1.className = `idx${index}`;
     input1.type = 'checkbox';
-    if (completed) {
-      input1.checked = true;
-    }
     span1.appendChild(input1);
-    input1.addEventListener('change', (e) => {
-      e.target.nextSibling.classList.toggle('done');
-      tasks.completedToggle(parseInt(e.target.classList[0].substr(3), 10));
-    });
 
     const input2 = document.createElement('input');
     input2.type = 'text';
@@ -98,6 +91,7 @@ const listTasks = (tasks) => {
   const li2 = document.createElement('li');
   li2.classList = 'task_line';
   const span4 = document.createElement('span');
+  span4.className = 'clear_completed';
   span4.innerText = 'Clear all completed';
   li2.appendChild(span4);
   ul.appendChild(li2);

@@ -1,3 +1,4 @@
+import interact from './interact.js';
 import listTasks from './list_tasks.js';
 import './style.css';
 import Tasks from './tasks.js';
@@ -9,3 +10,5 @@ if (localStorage.getItem('todoClass')) {
 }
 
 listTasks(todo);
+
+interact(todo);
