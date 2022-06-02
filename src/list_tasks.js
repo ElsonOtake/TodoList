@@ -42,9 +42,13 @@ const listTasks = (tasks) => {
     const span1 = document.createElement('span');
     span1.className = 'task_unit';
     const input1 = document.createElement('input');
+    input1.className = 'idx' + index;
     input1.type = 'checkbox';
     span1.appendChild(input1);
-    input1.addEventListener('change', (e) => e.target.nextSibling.classList.toggle('done'));
+    input1.addEventListener('change', (e) => { 
+      e.target.nextSibling.classList.toggle('done');
+      tasks.completedToggle(parseInt(e.target.classList[0].substr(3)));
+    });
     const input2 = document.createElement('input');
     input2.type = 'text';
     input2.className = 'idx' + index + ' description';

@@ -8,6 +8,7 @@ export default class Tasks {
       description: descr, 
       completed: false, 
       index: this.size() + 1 }];
+    localStorage.setItem('todoClass', JSON.stringify(this.tasks));
   }
 
   delete(num) {
@@ -15,14 +16,17 @@ export default class Tasks {
     for (let i = num; i <= this.size(); i += 1) {
       this.idxMinusOne(i);
     }
+    localStorage.setItem('todoClass', JSON.stringify(this.tasks));
   }
 
   update(str, num) {
     this.tasks[num - 1].description = str;
+    localStorage.setItem('todoClass', JSON.stringify(this.tasks));
   }
 
   completedToggle (num) {
     this.tasks[num - 1].completed = !this.tasks[num - 1].completed;
+    localStorage.setItem('todoClass', JSON.stringify(this.tasks));
   }
 
   idxMinusOne (num) {
@@ -36,4 +40,9 @@ export default class Tasks {
   idxTask(num) {
     return this.tasks[num - 1];
   }
+
+  restoreStorage() {
+    this.tasks = JSON.parse(localStorage.getItem('todoClass'));
+  }
+
 }
