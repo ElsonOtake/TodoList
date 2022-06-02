@@ -27,6 +27,12 @@ const listTasks = (tasks) => {
   span0.className = 'material-icons-outlined';
   span0.innerText = 'keyboard_return';
   li0.appendChild(span0);
+  span0.addEventListener('click', (e) => {
+    if (input0.value !== '') {
+      tasks.create(input0.value);
+      listTasks(tasks);
+  }
+  })
   ul.appendChild(li0);
 
   for (let i = 1; i <= tasks.size(); i += 1) {
@@ -48,6 +54,12 @@ const listTasks = (tasks) => {
     input2.addEventListener('click', (e) => {
       if (e.target.readOnly) {
         e.target.readOnly = false;
+        const moreVert = document.querySelectorAll('.more_vert');
+        Array.from(moreVert).forEach(icon => icon.classList.add('active'));
+        const deleteOutline = document.querySelectorAll('.delete_outline');
+        Array.from(deleteOutline).forEach(icon => icon.classList.remove('active'));
+        span2.classList.add('active');
+        span3.classList.remove('active');
       }
     });
     input2.addEventListener('keypress', (e) => {
@@ -59,7 +71,7 @@ const listTasks = (tasks) => {
     li1.appendChild(span1);
 
     const span2 = document.createElement('span');
-    span2.className = 'idx' + index + ' material-icons-outlined';
+    span2.className = 'idx' + index + ' material-icons-outlined delete_outline';
     span2.innerText = 'delete_outline';
     li1.appendChild(span2);
     span2.addEventListener('click', (e) => {
@@ -68,10 +80,10 @@ const listTasks = (tasks) => {
         listTasks(tasks);
       }
     })
-    // const span3 = document.createElement('span');
-    // span3.className = 'material-icons-outlined';
-    // span3.innerText = 'more_vert';
-    // li1.appendChild(span3);
+    const span3 = document.createElement('span');
+    span3.className = 'idx' + index + ' material-icons-outlined more_vert active';
+    span3.innerText = 'more_vert';
+    li1.appendChild(span3);
     ul.appendChild(li1);
   }
 

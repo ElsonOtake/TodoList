@@ -51,6 +51,22 @@ li:last-child span:hover {
   width: 100%;
 }
 
+.task_line .delete_outline {
+  display: none;
+}
+
+.task_line .delete_outline.active {
+  display: inline;
+}
+
+.task_line .more_vert {
+  display: none;
+}
+
+.task_line .more_vert.active {
+  display: inline;
+}
+
 .task_unit .description.done {
   text-decoration: line-through;
 }
