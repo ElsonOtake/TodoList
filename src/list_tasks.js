@@ -2,7 +2,6 @@ const listTasks = (tasks) => {
   const ul = document.querySelector('ul');
 
   let description;
-  let completed;
   let index;
 
   while (document.querySelector('.task_line')) {
@@ -34,7 +33,7 @@ const listTasks = (tasks) => {
   ul.appendChild(li0);
 
   for (let i = 1; i <= tasks.size(); i += 1) {
-    ({ description, completed, index } = tasks.idxTask(i));
+    ({ description, index } = tasks.idxTask(i));
     const li1 = document.createElement('li');
     li1.className = 'task_line';
     const span1 = document.createElement('span');
@@ -42,9 +41,6 @@ const listTasks = (tasks) => {
     const input1 = document.createElement('input');
     input1.className = `idx${index}`;
     input1.type = 'checkbox';
-    if (completed) {
-      input1.checked = true;
-    }
     span1.appendChild(input1);
     input1.addEventListener('change', (e) => {
       e.target.nextSibling.classList.toggle('done');
@@ -100,6 +96,10 @@ const listTasks = (tasks) => {
   const span4 = document.createElement('span');
   span4.innerText = 'Clear all completed';
   li2.appendChild(span4);
+  span4.addEventListener('click', () => {
+    tasks.removeCompleted();
+    listTasks(tasks);
+  });
   ul.appendChild(li2);
 };
 

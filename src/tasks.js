@@ -14,9 +14,7 @@ export default class Tasks {
 
   delete(num) {
     this.tasks = this.tasks.filter((task) => task.index !== num);
-    for (let i = num; i <= this.size(); i += 1) {
-      this.idxMinusOne(i);
-    }
+    this.resetIndex();
     localStorage.setItem('todoClass', JSON.stringify(this.tasks));
   }
 
@@ -30,8 +28,16 @@ export default class Tasks {
     localStorage.setItem('todoClass', JSON.stringify(this.tasks));
   }
 
-  idxMinusOne(num) {
-    this.tasks[num - 1].index -= 1;
+  removeCompleted() {
+    this.tasks = this.tasks.filter((task) => task.completed === false);
+    this.resetIndex();
+    localStorage.setItem('todoClass', JSON.stringify(this.tasks));
+  }
+
+  resetIndex() {
+    for (let i = 1; i <= this.size(); i += 1) {
+      this.tasks[i - 1].index = i;
+    }
   }
 
   size() {
