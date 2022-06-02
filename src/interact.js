@@ -1,9 +1,9 @@
+import listTasks from "./list_tasks";
+
 const interact = (tasks) => {
   let description;
   let completed;
   let index;
-
-
 
   for (let i = 1; i <= tasks.size(); i += 1) {
     ({ description, completed, index } = tasks.idxTask(i));
@@ -21,6 +21,11 @@ const interact = (tasks) => {
     });
     
   }
+
+  document.querySelector('.clear_completed').addEventListener('click', (e) => {
+    tasks.removeCompleted();
+    listTasks(tasks);
+  })
 }
 
 export default interact;

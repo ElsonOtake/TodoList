@@ -28,6 +28,12 @@ export default class Tasks {
     localStorage.setItem('todoClass', JSON.stringify(this.tasks));
   }
 
+  removeCompleted() {
+    this.tasks = this.tasks.filter((task) => task.completed === false);
+    this.resetIndex();
+    localStorage.setItem('todoClass', JSON.stringify(this.tasks));
+  }
+
   resetIndex() {
     for (let i = 1; i <= this.size(); i += 1) {
       this.tasks[i - 1].index = i;
