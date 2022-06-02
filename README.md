@@ -38,13 +38,19 @@ Cloning a repository
 
 - Above the list of files, click "Code" button;
 
-- Copy the URL to clone the repository, the options o using are: HTTPS, SSH key or, GitHub CLI;
+- Copy the URL to clone the repository, the options o using are: 
+
+  - HTTPS : https://github.com/ElsonOtake/TodoList.git
+
+  - SSH key : git@github.com:ElsonOtake/TodoList.git
+
+  - GitHub CLI : gh repo clone ElsonOtake/TodoList
 
 - Open TerminalTerminalGit Bash;
 
 - Change the current working directory to the location where you want the cloned directory;
 
-- Type git clone, and then paste the URL you copied earlier : $ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY;
+- Type git clone, and then paste the URL you copied earlier;
 
 - run `npm install` to install all dependencies;
 
