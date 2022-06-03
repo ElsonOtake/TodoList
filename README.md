@@ -19,7 +19,7 @@ All changes to the To Do List are saved in local storage.
 
 ## Live Demo (if available)
 
-[Live Demo Link](https://elsonotake.github.io/TodoList/)
+[Live Demo Link](https://elsonotake.github.io/TodoList/dist/)
 
 
 ## Getting Started
