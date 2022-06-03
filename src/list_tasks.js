@@ -64,15 +64,17 @@ const listTasks = (tasks) => {
     span1.appendChild(input2);
     input2.addEventListener('click', (e) => {
       if (e.target.readOnly) {
-        e.target.readOnly = false;
         const moreVert = document.querySelectorAll('.more_vert');
-        Array.from(moreVert).forEach((icon) => icon.classList.add('active'));
-        const deleteOutline = document.querySelectorAll('.delete_outline');
-        Array.from(deleteOutline).forEach((icon) => icon.classList.remove('active'));
-        const deleteIcon = document.querySelector(`.delete_outline.idx${e.target.classList[0].substr(3)}`);
-        deleteIcon.classList.add('active');
         const moreIcon = document.querySelector(`.more_vert.idx${e.target.classList[0].substr(3)}`);
+        Array.from(moreVert).forEach((icon) => icon.classList.add('active'));
         moreIcon.classList.remove('active');
+        const deleteOutline = document.querySelectorAll('.delete_outline');
+        const deleteIcon = document.querySelector(`.delete_outline.idx${e.target.classList[0].substr(3)}`);
+        Array.from(deleteOutline).forEach((icon) => icon.classList.remove('active'));
+        deleteIcon.classList.add('active');
+        const descriptionText = document.querySelectorAll('.description');
+        Array.from(descriptionText).forEach((text) => text.readOnly = true);
+        e.target.readOnly = false;
       }
     });
     input2.addEventListener('keypress', (e) => {
