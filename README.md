@@ -28,7 +28,7 @@ To get a local copy, follow these simple steps.
 
 ### Prerequisites
 
-In order to run this project on your computer, please make sure that you have a web browser installed
+Web browser installed
 
 ### Setup
 
@@ -38,19 +38,19 @@ Cloning a repository
 
 - Above the list of files, click "Code" button;
 
-- Copy the URL to clone the repository, the options o using are: 
+- Copy the URL to clone the repository. 
 
-  - HTTPS : `https://github.com/ElsonOtake/TodoList.git`
+  - To clone the repository using HTTPS : `https://github.com/ElsonOtake/TodoList.git`
 
-  - SSH key : `git@github.com:ElsonOtake/TodoList.git`
+  - To clone the repository using an SSH key, including a certificate issued by your organization's SSH certificate authority : `git@github.com:ElsonOtake/TodoList.git`
 
-  - GitHub CLI : `gh repo clone ElsonOtake/TodoList`
+  - To clone a repository using GitHub CLI : `gh repo clone ElsonOtake/TodoList`
 
-- Open TerminalTerminalGit Bash;
+- Open Terminal;
 
 - Change the current working directory to the location where you want the cloned directory;
 
-- Type git clone, and then paste the URL you copied earlier;
+- Type `git clone`, and then paste the URL you copied earlier;
 
 - run `npm install` to install all dependencies;
 
