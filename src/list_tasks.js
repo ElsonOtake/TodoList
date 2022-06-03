@@ -1,3 +1,5 @@
+import interact from './interact.js';
+
 const listTasks = (tasks) => {
   const ul = document.querySelector('ul');
 
@@ -18,6 +20,7 @@ const listTasks = (tasks) => {
     if (e.key === 'Enter' && input0.value.trim() !== '') {
       tasks.create(input0.value.trim());
       listTasks(tasks);
+      interact(tasks);
     }
   });
   const span0 = document.createElement('span');
@@ -28,6 +31,7 @@ const listTasks = (tasks) => {
     if (input0.value.trim() !== '') {
       tasks.create(input0.value.trim());
       listTasks(tasks);
+      interact(tasks);
     }
   });
   ul.appendChild(li0);
@@ -87,6 +91,7 @@ const listTasks = (tasks) => {
       if (e.target.previousSibling.lastChild.value.trim() === '') {
         tasks.delete(parseInt(e.target.classList[0].substr(3), 10));
         listTasks(tasks);
+        interact(tasks);
       }
     });
     const span3 = document.createElement('span');
