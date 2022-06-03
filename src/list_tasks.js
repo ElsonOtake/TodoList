@@ -1,3 +1,5 @@
+import interact from './interact.js';
+
 const listTasks = (tasks) => {
   const ul = document.querySelector('ul');
 
@@ -18,6 +20,7 @@ const listTasks = (tasks) => {
     if (e.key === 'Enter' && input0.value.trim() !== '') {
       tasks.create(input0.value.trim());
       listTasks(tasks);
+      interact(tasks);
     }
   });
   const span0 = document.createElement('span');
@@ -28,6 +31,7 @@ const listTasks = (tasks) => {
     if (input0.value.trim() !== '') {
       tasks.create(input0.value.trim());
       listTasks(tasks);
+      interact(tasks);
     }
   });
   ul.appendChild(li0);
@@ -43,8 +47,13 @@ const listTasks = (tasks) => {
     input1.type = 'checkbox';
     span1.appendChild(input1);
     input1.addEventListener('change', (e) => {
-      e.target.nextSibling.classList.toggle('done');
-      tasks.completedToggle(parseInt(e.target.classList[0].substr(3), 10));
+      if (e.target.nextSibling.classList.contains('done')) {
+        e.target.nextSibling.classList.remove('done');
+        tasks.completedChange(false, parseInt(e.target.classList[0].substr(3), 10));
+      } else {
+        e.target.nextSibling.classList.add('done');
+        tasks.completedChange(true, parseInt(e.target.classList[0].substr(3), 10));
+      }
     });
 
     const input2 = document.createElement('input');
@@ -55,21 +64,26 @@ const listTasks = (tasks) => {
     span1.appendChild(input2);
     input2.addEventListener('click', (e) => {
       if (e.target.readOnly) {
-        e.target.readOnly = false;
         const moreVert = document.querySelectorAll('.more_vert');
-        Array.from(moreVert).forEach((icon) => icon.classList.add('active'));
-        const deleteOutline = document.querySelectorAll('.delete_outline');
-        Array.from(deleteOutline).forEach((icon) => icon.classList.remove('active'));
-        const deleteIcon = document.querySelector(`.delete_outline.idx${e.target.classList[0].substr(3)}`);
-        deleteIcon.classList.add('active');
         const moreIcon = document.querySelector(`.more_vert.idx${e.target.classList[0].substr(3)}`);
+        Array.from(moreVert).forEach((icon) => icon.classList.add('active'));
         moreIcon.classList.remove('active');
+        const deleteOutline = document.querySelectorAll('.delete_outline');
+        const deleteIcon = document.querySelector(`.delete_outline.idx${e.target.classList[0].substr(3)}`);
+        Array.from(deleteOutline).forEach((icon) => icon.classList.remove('active'));
+        deleteIcon.classList.add('active');
+        const descriptionText = document.querySelectorAll('.description');
+        Array.from(descriptionText).forEach((text) => { text.readOnly = true; });
+        e.target.readOnly = false;
       }
     });
     input2.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && e.target.value.trim() !== '') {
         tasks.update(e.target.value.trim(), parseInt(e.target.classList[0].substr(3), 10));
+        e.target.readOnly = true;
+      } else if (e.key === 'Enter' && e.target.value.trim() === '') {
         listTasks(tasks);
+        interact(tasks);
       }
     });
     li1.appendChild(span1);
@@ -82,6 +96,7 @@ const listTasks = (tasks) => {
       if (e.target.previousSibling.lastChild.value.trim() === '') {
         tasks.delete(parseInt(e.target.classList[0].substr(3), 10));
         listTasks(tasks);
+        interact(tasks);
       }
     });
     const span3 = document.createElement('span');
