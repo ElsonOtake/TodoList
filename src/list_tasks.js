@@ -63,7 +63,7 @@ const listTasks = (tasks) => {
     input2.readOnly = true;
     span1.appendChild(input2);
     input2.addEventListener('click', (e) => {
-      if (e.target.readOnly) {
+      if (e.target.readOnly && !e.target.previousSibling.checked) {
         const moreVert = document.querySelectorAll('.more_vert');
         const moreIcon = document.querySelector(`.more_vert.idx${e.target.classList[0].substr(3)}`);
         Array.from(moreVert).forEach((icon) => icon.classList.add('active'));
@@ -83,7 +83,7 @@ const listTasks = (tasks) => {
         e.target.value = e.target.value.trim();
         e.target.readOnly = true;
         e.target.parentElement.nextSibling.classList.remove('active');
-        e.target.parentElement.nextSibling.nextSibling.classList.add('active')
+        e.target.parentElement.nextSibling.nextSibling.classList.add('active');
       }
     });
     input2.addEventListener('input', (e) => {
@@ -91,7 +91,7 @@ const listTasks = (tasks) => {
         listTasks(tasks);
         interact(tasks);
       }
-    })
+    });
     li1.appendChild(span1);
 
     const span2 = document.createElement('span');
@@ -99,11 +99,9 @@ const listTasks = (tasks) => {
     span2.innerText = 'delete_outline';
     li1.appendChild(span2);
     span2.addEventListener('click', (e) => {
-      if (e.target.previousSibling.lastChild.value.trim() === '') {
-        tasks.delete(parseInt(e.target.classList[0].substr(3), 10));
-        listTasks(tasks);
-        interact(tasks);
-      }
+      tasks.delete(parseInt(e.target.classList[0].substr(3), 10));
+      listTasks(tasks);
+      interact(tasks);
     });
     const span3 = document.createElement('span');
     span3.className = `idx${index} material-icons-outlined more_vert active`;
