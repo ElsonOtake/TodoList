@@ -79,15 +79,19 @@ const listTasks = (tasks) => {
     });
     input2.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        if (e.target.value.trim() !== '') {
-          tasks.update(e.target.value.trim(), parseInt(e.target.classList[0].substr(3), 10));
-          e.target.readOnly = true;
-        } else {
-          listTasks(tasks);
-          interact(tasks);
-        }
+        tasks.update(e.target.value.trim(), parseInt(e.target.classList[0].substr(3), 10));
+        e.target.value = e.target.value.trim();
+        e.target.readOnly = true;
+        e.target.parentElement.nextSibling.classList.remove('active');
+        e.target.parentElement.nextSibling.nextSibling.classList.add('active')
       }
     });
+    input2.addEventListener('input', (e) => {
+      if (e.target.value.trim() === '') {
+        listTasks(tasks);
+        interact(tasks);
+      }
+    })
     li1.appendChild(span1);
 
     const span2 = document.createElement('span');
