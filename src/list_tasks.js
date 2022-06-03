@@ -73,7 +73,7 @@ const listTasks = (tasks) => {
         Array.from(deleteOutline).forEach((icon) => icon.classList.remove('active'));
         deleteIcon.classList.add('active');
         const descriptionText = document.querySelectorAll('.description');
-        Array.from(descriptionText).forEach((text) => text.readOnly = true);
+        Array.from(descriptionText).forEach((text) => { text.readOnly = true; });
         e.target.readOnly = false;
       }
     });
@@ -81,9 +81,9 @@ const listTasks = (tasks) => {
       if (e.key === 'Enter' && e.target.value.trim() !== '') {
         tasks.update(e.target.value.trim(), parseInt(e.target.classList[0].substr(3), 10));
         e.target.readOnly = true;
-      } if (e.key === 'Enter' && e.target.value.trim() === '') {
+      } else if (e.key === 'Enter' && e.target.value.trim() === '') {
         listTasks(tasks);
-        interact(todo);
+        interact(tasks);
       }
     });
     li1.appendChild(span1);
