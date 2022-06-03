@@ -78,7 +78,10 @@ const listTasks = (tasks) => {
     input2.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && e.target.value.trim() !== '') {
         tasks.update(e.target.value.trim(), parseInt(e.target.classList[0].substr(3), 10));
+        e.target.readOnly = true;
+      } if (e.key === 'Enter' && e.target.value.trim() === '') {
         listTasks(tasks);
+        interact(todo);
       }
     });
     li1.appendChild(span1);
