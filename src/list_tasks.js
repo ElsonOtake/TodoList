@@ -43,8 +43,13 @@ const listTasks = (tasks) => {
     input1.type = 'checkbox';
     span1.appendChild(input1);
     input1.addEventListener('change', (e) => {
-      e.target.nextSibling.classList.toggle('done');
-      tasks.completedToggle(parseInt(e.target.classList[0].substr(3), 10));
+      if (e.target.nextSibling.classList.contains('done')) {
+        e.target.nextSibling.classList.remove('done');
+        tasks.completedChange(false, parseInt(e.target.classList[0].substr(3), 10));
+      } else {
+        e.target.nextSibling.classList.add('done');
+        tasks.completedChange(true, parseInt(e.target.classList[0].substr(3), 10));
+      }
     });
 
     const input2 = document.createElement('input');

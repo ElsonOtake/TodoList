@@ -23,8 +23,8 @@ export default class Tasks {
     localStorage.setItem('todoClass', JSON.stringify(this.tasks));
   }
 
-  completedToggle(num) {
-    this.tasks[num - 1].completed = !this.tasks[num - 1].completed;
+  completedChange(bool, num) {
+    this.tasks[num - 1].completed = bool;
     localStorage.setItem('todoClass', JSON.stringify(this.tasks));
   }
 
