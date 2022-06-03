@@ -15,8 +15,8 @@ const listTasks = (tasks) => {
   input0.placeholder = 'Add to your list...';
   li0.appendChild(input0);
   input0.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && input0.value !== '') {
-      tasks.create(input0.value);
+    if (e.key === 'Enter' && input0.value.trim() !== '') {
+      tasks.create(input0.value.trim());
       listTasks(tasks);
     }
   });
@@ -25,8 +25,8 @@ const listTasks = (tasks) => {
   span0.innerText = 'keyboard_return';
   li0.appendChild(span0);
   span0.addEventListener('click', () => {
-    if (input0.value !== '') {
-      tasks.create(input0.value);
+    if (input0.value.trim() !== '') {
+      tasks.create(input0.value.trim());
       listTasks(tasks);
     }
   });
@@ -67,8 +67,8 @@ const listTasks = (tasks) => {
       }
     });
     input2.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        tasks.update(e.target.value, parseInt(e.target.classList[0].substr(3), 10));
+      if (e.key === 'Enter' && e.target.value.trim() !== '') {
+        tasks.update(e.target.value.trim(), parseInt(e.target.classList[0].substr(3), 10));
         listTasks(tasks);
       }
     });
@@ -79,7 +79,7 @@ const listTasks = (tasks) => {
     span2.innerText = 'delete_outline';
     li1.appendChild(span2);
     span2.addEventListener('click', (e) => {
-      if (e.target.previousSibling.lastChild.value === '') {
+      if (e.target.previousSibling.lastChild.value.trim() === '') {
         tasks.delete(parseInt(e.target.classList[0].substr(3), 10));
         listTasks(tasks);
       }
