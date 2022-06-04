@@ -44,11 +44,9 @@ const listTasks = (tasks) => {
     liTaskLine.draggable = true;
     const spanTaskDescr = document.createElement('span');
     spanTaskDescr.className = `idx${index} task_unit`;
-    spanTaskDescr.draggable = false;
     const inputCheckBox = document.createElement('input');
     inputCheckBox.className = `idx${index}`;
     inputCheckBox.type = 'checkbox';
-    inputCheckBox.draggable = false;
     spanTaskDescr.appendChild(inputCheckBox);
     inputCheckBox.addEventListener('change', (e) => {
       if (e.target.nextSibling.classList.contains('done')) {
@@ -65,7 +63,6 @@ const listTasks = (tasks) => {
     inputDescription.className = `idx${index} description`;
     inputDescription.value = description;
     inputDescription.readOnly = true;
-    inputDescription.draggable = false;
     spanTaskDescr.appendChild(inputDescription);
     inputDescription.addEventListener('click', (e) => {
       if (e.target.readOnly && !e.target.previousSibling.checked) {
@@ -102,7 +99,6 @@ const listTasks = (tasks) => {
     const spanTrashCan = document.createElement('span');
     spanTrashCan.className = `idx${index} material-icons-outlined delete_outline`;
     spanTrashCan.innerText = 'delete_outline';
-    spanTrashCan.draggable = false;
     liTaskLine.appendChild(spanTrashCan);
     spanTrashCan.addEventListener('click', (e) => {
       tasks.delete(parseInt(e.target.classList[0].substr(3), 10));
@@ -112,7 +108,6 @@ const listTasks = (tasks) => {
     const spanMoreVert = document.createElement('span');
     spanMoreVert.className = `idx${index} material-icons-outlined more_vert active`;
     spanMoreVert.innerText = 'more_vert';
-    spanMoreVert.draggable = false;
     liTaskLine.appendChild(spanMoreVert);
     ulToDo.appendChild(liTaskLine);
 
