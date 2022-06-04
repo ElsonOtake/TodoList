@@ -40,6 +40,8 @@ const listTasks = (tasks) => {
     ({ description, index } = tasks.idxTask(i));
     const liTaskLine = document.createElement('li');
     liTaskLine.className = 'task_line';
+    liTaskLine.id = `drg${index}`;
+    liTaskLine.draggable = true;
     const spanTaskDescr = document.createElement('span');
     spanTaskDescr.className = 'task_unit';
     const inputCheckBox = document.createElement('input');
@@ -108,6 +110,19 @@ const listTasks = (tasks) => {
     spanMoreVert.innerText = 'more_vert';
     liTaskLine.appendChild(spanMoreVert);
     ulToDo.appendChild(liTaskLine);
+    liTaskLine.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData("application/x-moz-node", e.target.id);
+    })
+    liTaskLine.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    })
+    liTaskLine.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const data = e.dataTransfer.getData("application/x-moz-node");
+      e.target.insertAdjacentElement('afterend', document.getElementById(data));
+      // e.target.insertBefore(document.getElementById(data), e.target);
+      // e.target.appendChild(document.getElementById(data));
+    })
   }
 
   const liClearAll = document.createElement('li');
