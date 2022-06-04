@@ -1,52 +1,52 @@
 import interact from './interact.js';
 
 const listTasks = (tasks) => {
-  const ul = document.querySelector('ul');
+  const ulToDo = document.querySelector('ul');
 
   let description;
   let index;
 
   while (document.querySelector('.task_line')) {
-    ul.removeChild(document.querySelector('.task_line'));
+    ulToDo.removeChild(document.querySelector('.task_line'));
   }
 
-  const li0 = document.createElement('li');
-  li0.className = 'task_line add_to_list';
-  const input0 = document.createElement('input');
-  input0.type = 'text';
-  input0.placeholder = 'Add to your list...';
-  li0.appendChild(input0);
-  input0.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && input0.value.trim() !== '') {
-      tasks.create(input0.value.trim());
+  const liAddToList = document.createElement('li');
+  liAddToList.className = 'task_line add_to_list';
+  const inputAddToList = document.createElement('input');
+  inputAddToList.type = 'text';
+  inputAddToList.placeholder = 'Add to your list...';
+  liAddToList.appendChild(inputAddToList);
+  inputAddToList.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && inputAddToList.value.trim() !== '') {
+      tasks.create(inputAddToList.value.trim());
       listTasks(tasks);
       interact(tasks);
     }
   });
-  const span0 = document.createElement('span');
-  span0.className = 'material-icons-outlined';
-  span0.innerText = 'keyboard_return';
-  li0.appendChild(span0);
-  span0.addEventListener('click', () => {
-    if (input0.value.trim() !== '') {
-      tasks.create(input0.value.trim());
+  const spanKeyboardReturn = document.createElement('span');
+  spanKeyboardReturn.className = 'material-icons-outlined';
+  spanKeyboardReturn.innerText = 'keyboard_return';
+  liAddToList.appendChild(spanKeyboardReturn);
+  spanKeyboardReturn.addEventListener('click', () => {
+    if (inputAddToList.value.trim() !== '') {
+      tasks.create(inputAddToList.value.trim());
       listTasks(tasks);
       interact(tasks);
     }
   });
-  ul.appendChild(li0);
+  ulToDo.appendChild(liAddToList);
 
   for (let i = 1; i <= tasks.size(); i += 1) {
     ({ description, index } = tasks.idxTask(i));
-    const li1 = document.createElement('li');
-    li1.className = 'task_line';
-    const span1 = document.createElement('span');
-    span1.className = 'task_unit';
-    const input1 = document.createElement('input');
-    input1.className = `idx${index}`;
-    input1.type = 'checkbox';
-    span1.appendChild(input1);
-    input1.addEventListener('change', (e) => {
+    const liTaskLine = document.createElement('li');
+    liTaskLine.className = 'task_line';
+    const spanTaskDescr = document.createElement('span');
+    spanTaskDescr.className = 'task_unit';
+    const inputCheckBox = document.createElement('input');
+    inputCheckBox.className = `idx${index}`;
+    inputCheckBox.type = 'checkbox';
+    spanTaskDescr.appendChild(inputCheckBox);
+    inputCheckBox.addEventListener('change', (e) => {
       if (e.target.nextSibling.classList.contains('done')) {
         e.target.nextSibling.classList.remove('done');
         tasks.completedChange(false, parseInt(e.target.classList[0].substr(3), 10));
@@ -56,13 +56,13 @@ const listTasks = (tasks) => {
       }
     });
 
-    const input2 = document.createElement('input');
-    input2.type = 'text';
-    input2.className = `idx${index} description`;
-    input2.value = description;
-    input2.readOnly = true;
-    span1.appendChild(input2);
-    input2.addEventListener('click', (e) => {
+    const inputDescription = document.createElement('input');
+    inputDescription.type = 'text';
+    inputDescription.className = `idx${index} description`;
+    inputDescription.value = description;
+    inputDescription.readOnly = true;
+    spanTaskDescr.appendChild(inputDescription);
+    inputDescription.addEventListener('click', (e) => {
       if (e.target.readOnly && !e.target.previousSibling.checked) {
         const moreVert = document.querySelectorAll('.more_vert');
         const moreIcon = document.querySelector(`.more_vert.idx${e.target.classList[0].substr(3)}`);
@@ -77,7 +77,7 @@ const listTasks = (tasks) => {
         e.target.readOnly = false;
       }
     });
-    input2.addEventListener('keypress', (e) => {
+    inputDescription.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         tasks.update(e.target.value.trim(), parseInt(e.target.classList[0].substr(3), 10));
         e.target.value = e.target.value.trim();
@@ -86,40 +86,40 @@ const listTasks = (tasks) => {
         e.target.parentElement.nextSibling.nextSibling.classList.add('active');
       }
     });
-    input2.addEventListener('input', (e) => {
+    inputDescription.addEventListener('input', (e) => {
       if (e.target.value.trim() === '') {
         listTasks(tasks);
         interact(tasks);
       }
     });
-    li1.appendChild(span1);
+    liTaskLine.appendChild(spanTaskDescr);
 
-    const span2 = document.createElement('span');
-    span2.className = `idx${index} material-icons-outlined delete_outline`;
-    span2.innerText = 'delete_outline';
-    li1.appendChild(span2);
-    span2.addEventListener('click', (e) => {
+    const spanTrashCan = document.createElement('span');
+    spanTrashCan.className = `idx${index} material-icons-outlined delete_outline`;
+    spanTrashCan.innerText = 'delete_outline';
+    liTaskLine.appendChild(spanTrashCan);
+    spanTrashCan.addEventListener('click', (e) => {
       tasks.delete(parseInt(e.target.classList[0].substr(3), 10));
       listTasks(tasks);
       interact(tasks);
     });
-    const span3 = document.createElement('span');
-    span3.className = `idx${index} material-icons-outlined more_vert active`;
-    span3.innerText = 'more_vert';
-    li1.appendChild(span3);
-    ul.appendChild(li1);
+    const spanMoreVert = document.createElement('span');
+    spanMoreVert.className = `idx${index} material-icons-outlined more_vert active`;
+    spanMoreVert.innerText = 'more_vert';
+    liTaskLine.appendChild(spanMoreVert);
+    ulToDo.appendChild(liTaskLine);
   }
 
-  const li2 = document.createElement('li');
-  li2.classList = 'task_line';
-  const span4 = document.createElement('span');
-  span4.innerText = 'Clear all completed';
-  li2.appendChild(span4);
-  span4.addEventListener('click', () => {
+  const liClearAll = document.createElement('li');
+  liClearAll.classList = 'task_line';
+  const pClearAll = document.createElement('p');
+  pClearAll.innerText = 'Clear all completed';
+  liClearAll.appendChild(pClearAll);
+  pClearAll.addEventListener('click', () => {
     tasks.removeCompleted();
     listTasks(tasks);
   });
-  ul.appendChild(li2);
+  ulToDo.appendChild(liClearAll);
 };
 
 export default listTasks;
