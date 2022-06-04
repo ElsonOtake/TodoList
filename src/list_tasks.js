@@ -39,14 +39,16 @@ const listTasks = (tasks) => {
   for (let i = 1; i <= tasks.size(); i += 1) {
     ({ description, index } = tasks.idxTask(i));
     const liTaskLine = document.createElement('li');
-    liTaskLine.className = 'task_line';
+    liTaskLine.className = `idx${index} task_line`;
     liTaskLine.id = `drg${index}`;
     liTaskLine.draggable = true;
     const spanTaskDescr = document.createElement('span');
-    spanTaskDescr.className = 'task_unit';
+    spanTaskDescr.className = `idx${index} task_unit`;
+    spanTaskDescr.draggable = false;
     const inputCheckBox = document.createElement('input');
     inputCheckBox.className = `idx${index}`;
     inputCheckBox.type = 'checkbox';
+    inputCheckBox.draggable = false;
     spanTaskDescr.appendChild(inputCheckBox);
     inputCheckBox.addEventListener('change', (e) => {
       if (e.target.nextSibling.classList.contains('done')) {
@@ -63,6 +65,7 @@ const listTasks = (tasks) => {
     inputDescription.className = `idx${index} description`;
     inputDescription.value = description;
     inputDescription.readOnly = true;
+    inputDescription.draggable = false;
     spanTaskDescr.appendChild(inputDescription);
     inputDescription.addEventListener('click', (e) => {
       if (e.target.readOnly && !e.target.previousSibling.checked) {
@@ -99,6 +102,7 @@ const listTasks = (tasks) => {
     const spanTrashCan = document.createElement('span');
     spanTrashCan.className = `idx${index} material-icons-outlined delete_outline`;
     spanTrashCan.innerText = 'delete_outline';
+    spanTrashCan.draggable = false;
     liTaskLine.appendChild(spanTrashCan);
     spanTrashCan.addEventListener('click', (e) => {
       tasks.delete(parseInt(e.target.classList[0].substr(3), 10));
@@ -108,20 +112,25 @@ const listTasks = (tasks) => {
     const spanMoreVert = document.createElement('span');
     spanMoreVert.className = `idx${index} material-icons-outlined more_vert active`;
     spanMoreVert.innerText = 'more_vert';
+    spanMoreVert.draggable = false;
     liTaskLine.appendChild(spanMoreVert);
     ulToDo.appendChild(liTaskLine);
+
     liTaskLine.addEventListener('dragstart', (e) => {
-      e.dataTransfer.setData("application/x-moz-node", e.target.id);
+      e.dataTransfer.setData("application/x-moz-node", e.target.classList[0]);
     })
+
     liTaskLine.addEventListener('dragover', (e) => {
       e.preventDefault();
     })
+
     liTaskLine.addEventListener('drop', (e) => {
       e.preventDefault();
       const data = e.dataTransfer.getData("application/x-moz-node");
-      e.target.insertAdjacentElement('afterend', document.getElementById(data));
-      // e.target.insertBefore(document.getElementById(data), e.target);
-      // e.target.appendChild(document.getElementById(data));
+      e.target.insertAdjacentElement('afterend', document.querySelector(`.${data}.task_line`));
+      tasks.changePosition(parseInt(data.substring(3), 10), parseInt(e.target.classList[0].substr(3), 10));
+      listTasks(tasks);
+      interact(tasks);
     })
   }
 
