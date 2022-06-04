@@ -34,6 +34,22 @@ export default class Tasks {
     localStorage.setItem('todoClass', JSON.stringify(this.tasks));
   }
 
+  changePosition(from, after) {
+    if (from < after) {
+      this.tasks = [...this.tasks.slice(0, from - 1),
+        ...this.tasks.slice(from, after),
+        ...this.tasks.slice(from - 1, from),
+        ...this.tasks.slice(after)];
+    } else {
+      this.tasks = [...this.tasks.slice(0, after),
+        ...this.tasks.slice(from - 1, from),
+        ...this.tasks.slice(after, from - 1),
+        ...this.tasks.slice(from)];
+    }
+    this.resetIndex();
+    localStorage.setItem('todoClass', JSON.stringify(this.tasks));
+  }
+
   resetIndex() {
     for (let i = 1; i <= this.size(); i += 1) {
       this.tasks[i - 1].index = i;

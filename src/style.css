@@ -35,7 +35,7 @@ li:last-child {
   justify-content: center;
 }
 
-li:last-child span:hover {
+li:last-child p:hover {
   text-decoration: underline;
   cursor: pointer;
 }
@@ -87,4 +87,8 @@ input[type=text] {
 input[type=checkbox] {
   margin: 0 10px 0 0;
   padding: 0;
+}
+
+li[id^="drg"] {
+  background-color: white;
 }
