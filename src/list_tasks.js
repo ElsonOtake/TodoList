@@ -117,21 +117,22 @@ const listTasks = (tasks) => {
     ulToDo.appendChild(liTaskLine);
 
     liTaskLine.addEventListener('dragstart', (e) => {
-      e.dataTransfer.setData("application/x-moz-node", e.target.classList[0]);
-    })
+      e.dataTransfer.setData('application/x-moz-node', e.target.classList[0]);
+    });
 
     liTaskLine.addEventListener('dragover', (e) => {
       e.preventDefault();
-    })
+    });
 
     liTaskLine.addEventListener('drop', (e) => {
       e.preventDefault();
-      const data = e.dataTransfer.getData("application/x-moz-node");
+      const data = e.dataTransfer.getData('application/x-moz-node');
       e.target.insertAdjacentElement('afterend', document.querySelector(`.${data}.task_line`));
-      tasks.changePosition(parseInt(data.substring(3), 10), parseInt(e.target.classList[0].substr(3), 10));
+      tasks.changePosition(parseInt(data.substring(3), 10),
+        parseInt(e.target.classList[0].substr(3), 10));
       listTasks(tasks);
       interact(tasks);
-    })
+    });
   }
 
   const liClearAll = document.createElement('li');

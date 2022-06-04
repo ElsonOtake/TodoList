@@ -36,12 +36,12 @@ export default class Tasks {
 
   changePosition(from, after) {
     if (from < after) {
-      this.tasks = [...this.tasks.slice(0, from - 1), 
+      this.tasks = [...this.tasks.slice(0, from - 1),
         ...this.tasks.slice(from, after),
         ...this.tasks.slice(from - 1, from),
         ...this.tasks.slice(after)];
     } else {
-      this.tasks = [...this.tasks.slice(0, after), 
+      this.tasks = [...this.tasks.slice(0, after),
         ...this.tasks.slice(from - 1, from),
         ...this.tasks.slice(after, from - 1),
         ...this.tasks.slice(from)];
