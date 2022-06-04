@@ -5,6 +5,7 @@ This project were developed using ES6 and Webpack.
 The CRUD (create, update, delete) methods were implemented.
 The mark task completion and the clear all completed functions were implemented.
 All changes to the To Do List are saved in local storage.
+The user is able to reorder the list by dragging each item, and moving it into the desired position.
 
 
 ## Built With
