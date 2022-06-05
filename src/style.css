@@ -87,8 +87,7 @@ input[type=text] {
 }
 
 input[type=checkbox] {
-  margin: 0 10px 0 0;
-  padding: 0;
+  margin-right: 10px;
 }
 
 li[id^="drg"].insert {
