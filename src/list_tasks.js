@@ -1,4 +1,5 @@
 import interact from './interact.js';
+import _ from 'lodash';
 
 const listTasks = (todo) => {
   const ulToDo = document.querySelector('ul');
@@ -36,7 +37,7 @@ const listTasks = (todo) => {
   });
   ulToDo.appendChild(liAddToList);
 
-  todo.tasks.forEach((task, i) => {
+  _.forEach(todo.tasks, (task, i) => {
     const liTaskLine = document.createElement('li');
     liTaskLine.className = `idx${task.index} task_line`;
     liTaskLine.id = `drg${task.index}`;

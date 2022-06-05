@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default class Tasks {
   constructor() {
     this.tasks = [];
@@ -51,7 +53,7 @@ export default class Tasks {
   }
 
   resetIndex() {
-    this.tasks.forEach((task, i) => {
+    _.forEach(this.tasks, (task, i) => {
       task.index = i + 1;
     })
   }

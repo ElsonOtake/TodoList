@@ -1,6 +1,8 @@
+import _ from 'lodash';
+
 const interact = (todo) => {
 
-  todo.tasks.forEach((task, i) => {
+  _.forEach(todo.tasks, (task, i) => {
         
     if (task.completed) {
       const checkbox = document.querySelector(`.task_unit input[type=checkbox].idx${i + 1}`);
