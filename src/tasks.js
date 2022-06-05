@@ -51,9 +51,9 @@ export default class Tasks {
   }
 
   resetIndex() {
-    for (let i = 1; i <= this.size(); i += 1) {
-      this.tasks[i - 1].index = i;
-    }
+    this.tasks.forEach((task, i) => {
+      task.index = i + 1;
+    })
   }
 
   size() {
