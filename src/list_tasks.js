@@ -131,11 +131,11 @@ const listTasks = (tasks) => {
 
     liTaskLine.addEventListener('dragenter', (e) => {
       document.querySelector(`.${e.target.classList[0]}.task_line`).classList.add('insert');
-    })
+    });
 
     liTaskLine.addEventListener('dragleave', (e) => {
       document.querySelector(`.${e.target.classList[0]}.task_line`).classList.remove('insert');
-    })
+    });
   }
 
   const liClearAll = document.createElement('li');
