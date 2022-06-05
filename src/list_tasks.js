@@ -122,11 +122,19 @@ const listTasks = (tasks) => {
     liTaskLine.addEventListener('drop', (e) => {
       e.preventDefault();
       const data = e.dataTransfer.getData('application/x-moz-node');
-      e.target.insertAdjacentElement('afterend', document.querySelector(`.${data}.task_line`));
+      e.target.insertAdjacentElement('beforebegin', document.querySelector(`.${data}.task_line`));
       tasks.changePosition(parseInt(data.substring(3), 10),
         parseInt(e.target.classList[0].substr(3), 10));
       listTasks(tasks);
       interact(tasks);
+    });
+
+    liTaskLine.addEventListener('dragenter', (e) => {
+      document.querySelector(`.${e.target.classList[0]}.task_line`).classList.add('insert');
+    });
+
+    liTaskLine.addEventListener('dragleave', (e) => {
+      document.querySelector(`.${e.target.classList[0]}.task_line`).classList.remove('insert');
     });
   }
 
