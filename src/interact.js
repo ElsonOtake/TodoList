@@ -1,6 +1,6 @@
-const interact = (tasks) => {
+const interact = (todo) => {
 
-  tasks.tasks.forEach((task, i) => {
+  todo.tasks.forEach((task, i) => {
         
     if (task.completed) {
       const checkbox = document.querySelector(`.task_unit input[type=checkbox].idx${i + 1}`);
