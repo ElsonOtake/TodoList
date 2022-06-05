@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default class Tasks {
   constructor() {
     this.tasks = [];
@@ -51,9 +53,9 @@ export default class Tasks {
   }
 
   resetIndex() {
-    for (let i = 1; i <= this.size(); i += 1) {
-      this.tasks[i - 1].index = i;
-    }
+    _.forEach(this.tasks, (task, i) => {
+      task.index = i + 1;
+    });
   }
 
   size() {

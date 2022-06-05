@@ -1,10 +1,8 @@
+import _ from 'lodash';
 import interact from './interact.js';
 
-const listTasks = (tasks) => {
+const listTasks = (todo) => {
   const ulToDo = document.querySelector('ul');
-
-  let description;
-  let index;
 
   while (document.querySelector('.task_line')) {
     ulToDo.removeChild(document.querySelector('.task_line'));
@@ -18,9 +16,9 @@ const listTasks = (tasks) => {
   liAddToList.appendChild(inputAddToList);
   inputAddToList.addEventListener('keypress', (e) => {
     if (e.key === 'Enter' && inputAddToList.value.trim() !== '') {
-      tasks.create(inputAddToList.value.trim());
-      listTasks(tasks);
-      interact(tasks);
+      todo.create(inputAddToList.value.trim());
+      listTasks(todo);
+      interact(todo);
     }
   });
   const spanKeyboardReturn = document.createElement('span');
@@ -29,39 +27,38 @@ const listTasks = (tasks) => {
   liAddToList.appendChild(spanKeyboardReturn);
   spanKeyboardReturn.addEventListener('click', () => {
     if (inputAddToList.value.trim() !== '') {
-      tasks.create(inputAddToList.value.trim());
-      listTasks(tasks);
-      interact(tasks);
+      todo.create(inputAddToList.value.trim());
+      listTasks(todo);
+      interact(todo);
     }
   });
   ulToDo.appendChild(liAddToList);
 
-  for (let i = 1; i <= tasks.size(); i += 1) {
-    ({ description, index } = tasks.idxTask(i));
+  _.forEach(todo.tasks, (task) => {
     const liTaskLine = document.createElement('li');
-    liTaskLine.className = `idx${index} task_line`;
-    liTaskLine.id = `drg${index}`;
+    liTaskLine.className = `idx${task.index} task_line`;
+    liTaskLine.id = `drg${task.index}`;
     liTaskLine.draggable = true;
     const spanTaskDescr = document.createElement('span');
-    spanTaskDescr.className = `idx${index} task_unit`;
+    spanTaskDescr.className = `idx${task.index} task_unit`;
     const inputCheckBox = document.createElement('input');
-    inputCheckBox.className = `idx${index}`;
+    inputCheckBox.className = `idx${task.index}`;
     inputCheckBox.type = 'checkbox';
     spanTaskDescr.appendChild(inputCheckBox);
     inputCheckBox.addEventListener('change', (e) => {
       if (e.target.nextSibling.classList.contains('done')) {
         e.target.nextSibling.classList.remove('done');
-        tasks.completedChange(false, parseInt(e.target.classList[0].substr(3), 10));
+        todo.completedChange(false, parseInt(e.target.classList[0].substr(3), 10));
       } else {
         e.target.nextSibling.classList.add('done');
-        tasks.completedChange(true, parseInt(e.target.classList[0].substr(3), 10));
+        todo.completedChange(true, parseInt(e.target.classList[0].substr(3), 10));
       }
     });
 
     const inputDescription = document.createElement('input');
     inputDescription.type = 'text';
-    inputDescription.className = `idx${index} description`;
-    inputDescription.value = description;
+    inputDescription.className = `idx${task.index} description`;
+    inputDescription.value = task.description;
     inputDescription.readOnly = true;
     spanTaskDescr.appendChild(inputDescription);
     inputDescription.addEventListener('click', (e) => {
@@ -81,7 +78,7 @@ const listTasks = (tasks) => {
     });
     inputDescription.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        tasks.update(e.target.value.trim(), parseInt(e.target.classList[0].substr(3), 10));
+        todo.update(e.target.value.trim(), parseInt(e.target.classList[0].substr(3), 10));
         e.target.value = e.target.value.trim();
         e.target.readOnly = true;
         e.target.parentElement.nextSibling.classList.remove('active');
@@ -90,23 +87,23 @@ const listTasks = (tasks) => {
     });
     inputDescription.addEventListener('input', (e) => {
       if (e.target.value.trim() === '') {
-        listTasks(tasks);
-        interact(tasks);
+        listTasks(todo);
+        interact(todo);
       }
     });
     liTaskLine.appendChild(spanTaskDescr);
 
     const spanTrashCan = document.createElement('span');
-    spanTrashCan.className = `idx${index} material-icons-outlined delete_outline`;
+    spanTrashCan.className = `idx${task.index} material-icons-outlined delete_outline`;
     spanTrashCan.innerText = 'delete_outline';
     liTaskLine.appendChild(spanTrashCan);
     spanTrashCan.addEventListener('click', (e) => {
-      tasks.delete(parseInt(e.target.classList[0].substr(3), 10));
-      listTasks(tasks);
-      interact(tasks);
+      todo.delete(parseInt(e.target.classList[0].substr(3), 10));
+      listTasks(todo);
+      interact(todo);
     });
     const spanMoreVert = document.createElement('span');
-    spanMoreVert.className = `idx${index} material-icons-outlined more_vert active`;
+    spanMoreVert.className = `idx${task.index} material-icons-outlined more_vert active`;
     spanMoreVert.innerText = 'more_vert';
     liTaskLine.appendChild(spanMoreVert);
     ulToDo.appendChild(liTaskLine);
@@ -123,10 +120,10 @@ const listTasks = (tasks) => {
       e.preventDefault();
       const data = e.dataTransfer.getData('application/x-moz-node');
       e.target.insertAdjacentElement('beforebegin', document.querySelector(`.${data}.task_line`));
-      tasks.changePosition(parseInt(data.substring(3), 10),
+      todo.changePosition(parseInt(data.substring(3), 10),
         parseInt(e.target.classList[0].substr(3), 10));
-      listTasks(tasks);
-      interact(tasks);
+      listTasks(todo);
+      interact(todo);
     });
 
     liTaskLine.addEventListener('dragenter', (e) => {
@@ -136,7 +133,7 @@ const listTasks = (tasks) => {
     liTaskLine.addEventListener('dragleave', (e) => {
       document.querySelector(`.${e.target.classList[0]}.task_line`).classList.remove('insert');
     });
-  }
+  });
 
   const liClearAll = document.createElement('li');
   liClearAll.classList = 'task_line';
@@ -144,8 +141,8 @@ const listTasks = (tasks) => {
   pClearAll.innerText = 'Clear all completed';
   liClearAll.appendChild(pClearAll);
   pClearAll.addEventListener('click', () => {
-    tasks.removeCompleted();
-    listTasks(tasks);
+    todo.removeCompleted();
+    listTasks(todo);
   });
   ulToDo.appendChild(liClearAll);
 };
