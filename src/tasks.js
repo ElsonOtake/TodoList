@@ -55,7 +55,7 @@ export default class Tasks {
   resetIndex() {
     _.forEach(this.tasks, (task, i) => {
       task.index = i + 1;
-    })
+    });
   }
 
   size() {
