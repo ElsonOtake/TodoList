@@ -10,5 +10,3 @@ if (localStorage.getItem('todoClass')) {
 }
 
 listTasks(todo);
-
-interact(todo);
