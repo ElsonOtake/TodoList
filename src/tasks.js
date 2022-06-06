@@ -62,10 +62,6 @@ export default class Tasks {
     return this.tasks.length;
   }
 
-  idxTask(num) {
-    return this.tasks[num - 1];
-  }
-
   restoreStorage() {
     this.tasks = JSON.parse(localStorage.getItem('todoClass'));
   }

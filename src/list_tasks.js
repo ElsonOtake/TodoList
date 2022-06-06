@@ -17,8 +17,7 @@ const listTasks = (todo) => {
   inputAddToList.addEventListener('keypress', (e) => {
     if (e.key === 'Enter' && inputAddToList.value.trim() !== '') {
       todo.create(inputAddToList.value.trim());
-      listTasks(todo);
-      interact(todo);
+      refreshTasks(todo);
     }
   });
   const spanKeyboardReturn = document.createElement('span');
@@ -28,8 +27,7 @@ const listTasks = (todo) => {
   spanKeyboardReturn.addEventListener('click', () => {
     if (inputAddToList.value.trim() !== '') {
       todo.create(inputAddToList.value.trim());
-      listTasks(todo);
-      interact(todo);
+      refreshTasks(todo);
     }
   });
   ulToDo.appendChild(liAddToList);
@@ -87,8 +85,7 @@ const listTasks = (todo) => {
     });
     inputDescription.addEventListener('input', (e) => {
       if (e.target.value.trim() === '') {
-        listTasks(todo);
-        interact(todo);
+        refreshTasks(todo);
       }
     });
     liTaskLine.appendChild(spanTaskDescr);
@@ -99,8 +96,7 @@ const listTasks = (todo) => {
     liTaskLine.appendChild(spanTrashCan);
     spanTrashCan.addEventListener('click', (e) => {
       todo.delete(parseInt(e.target.classList[0].substr(3), 10));
-      listTasks(todo);
-      interact(todo);
+      refreshTasks(todo);
     });
     const spanMoreVert = document.createElement('span');
     spanMoreVert.className = `idx${task.index} material-icons-outlined more_vert active`;
@@ -122,8 +118,7 @@ const listTasks = (todo) => {
       e.target.insertAdjacentElement('beforebegin', document.querySelector(`.${data}.task_line`));
       todo.changePosition(parseInt(data.substring(3), 10),
         parseInt(e.target.classList[0].substr(3), 10));
-      listTasks(todo);
-      interact(todo);
+        refreshTasks(todo);
     });
 
     liTaskLine.addEventListener('dragenter', (e) => {
@@ -146,5 +141,10 @@ const listTasks = (todo) => {
   });
   ulToDo.appendChild(liClearAll);
 };
+
+const refreshTasks = (todo) => {
+  listTasks(todo);
+  interact(todo);
+}
 
 export default listTasks;
