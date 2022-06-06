@@ -91,6 +91,5 @@ input[type=checkbox] {
 }
 
 li[id^="drg"].insert {
-  border-bottom: 1px solid gray;
-  margin-bottom: 50px;
+  border-bottom: 2px solid gray;
 }
