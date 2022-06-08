@@ -1,6 +1,20 @@
 import _ from 'lodash';
 import interact from './interact.js';
 
+const dragPosition = (todo) => {
+  const liDraggable = document.querySelectorAll('li[id^="drg"]');
+  const idxDragging = parseInt(document.querySelector('.dragging').classList[0].substring(3), 10);
+  Array.from(liDraggable).forEach((list, idx) => {
+    if (list.classList.contains('dragging')) {
+      if (idx < idxDragging) {
+        todo.changePosition(idxDragging, idx);
+      } else {
+        todo.changePosition(idxDragging, idx + 1);
+      }
+    }
+  });
+};
+
 const listTasks = (todo) => {
   const ulToDo = document.querySelector('ul');
 
@@ -105,33 +119,29 @@ const listTasks = (todo) => {
     ulToDo.appendChild(liTaskLine);
 
     liTaskLine.addEventListener('dragstart', (e) => {
-      e.dataTransfer.setData('application/x-moz-node', e.target.classList[0]);
+      e.target.classList.add('dragging');
+    });
+
+    liTaskLine.addEventListener('dragend', (e) => {
+      e.target.classList.remove('dragging');
     });
 
     liTaskLine.addEventListener('dragover', (e) => {
       e.preventDefault();
+      const beforeElement = document.querySelector(`#drg${parseInt(e.target.classList[0].substr(3), 10)}`);
+      beforeElement.parentElement.insertBefore(document.querySelector('.dragging'), beforeElement);
     });
 
     liTaskLine.addEventListener('drop', (e) => {
       e.preventDefault();
-      const data = e.dataTransfer.getData('application/x-moz-node');
-      e.target.insertAdjacentElement('beforebegin', document.querySelector(`.${data}.task_line`));
-      todo.changePosition(parseInt(data.substring(3), 10),
-        parseInt(e.target.classList[0].substr(3), 10));
+      dragPosition(todo);
       listTasks(todo);
-    });
-
-    liTaskLine.addEventListener('dragenter', (e) => {
-      document.querySelector(`.${e.target.classList[0]}.task_line`).classList.add('insert');
-    });
-
-    liTaskLine.addEventListener('dragleave', (e) => {
-      document.querySelector(`.${e.target.classList[0]}.task_line`).classList.remove('insert');
     });
   });
 
   const liClearAll = document.createElement('li');
   liClearAll.classList = 'task_line';
+  liClearAll.id = `drg${todo.size() + 1}`;
   const pClearAll = document.createElement('p');
   pClearAll.innerText = 'Clear all completed';
   liClearAll.appendChild(pClearAll);
@@ -140,6 +150,18 @@ const listTasks = (todo) => {
     listTasks(todo);
   });
   ulToDo.appendChild(liClearAll);
+
+  liClearAll.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    const beforeElement = document.getElementById(e.target.id);
+    beforeElement.parentElement.insertBefore(document.querySelector('.dragging'), beforeElement);
+  });
+
+  liClearAll.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dragPosition(todo);
+    listTasks(todo);
+  });
 
   interact(todo);
 };
