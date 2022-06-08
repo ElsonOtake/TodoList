@@ -69,7 +69,7 @@ li:last-child p:hover {
   display: inline;
 }
 
-.task_unit .description.done {
+.task_line .description.done {
   text-decoration: line-through;
 }
 
@@ -84,12 +84,13 @@ input[type=text] {
   outline: none;
   border: none;
   width: 100%;
+  background-color: transparent;
 }
 
 input[type=checkbox] {
   margin-right: 10px;
 }
 
-li[id^="drg"].insert {
-  border-bottom: 2px solid gray;
+li[id^="drg"].dragging {
+  background-color: #ddd;
 }
