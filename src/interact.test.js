@@ -1,4 +1,4 @@
-import _, { update } from 'lodash';
+import _ from 'lodash';
 import { fetchData } from './__mocks__/list_tasks.js';
 
 jest.mock('./list_tasks.js');
@@ -70,13 +70,6 @@ const todo = {
     { description: 'fix car', completed: true, index: 2 },
     { description: 'do a haircut', completed: false, index: 3 },
     { description: 'walk the dog', completed: true, index: 4 }],
-  size: () => 4,
-  changePosition: (a, b) => null,
-  create: (descr) => null,
-  completedChange: (bool, num) => null,
-  update: (descr, num) => null,
-  delete: (num) => null,
-  removeCompleted: () => null
 };
 
 const interact = (todo) => {
@@ -101,11 +94,6 @@ describe('Testing the function that change the checkbox status to checked if com
     expect(dom.window.document.querySelector('.task_unit input[type=text].idx2').classList.contains('done')).toBeTruthy();
     expect(dom.window.document.querySelector('.task_unit input[type=text].idx3').classList.contains('done')).toBeFalsy();
     expect(dom.window.document.querySelector('.task_unit input[type=text].idx4').classList.contains('done')).toBeTruthy();
-    expect(todo.tasks[0].description).toBe('wash the dishes');
-    expect(todo.tasks[1].completed).not.toBeFalsy();
-    expect(todo.tasks[3].index).toBe(4);
-    expect(todo.size()).toBe(4);
-    expect(todo.create('descr')).toBeNull();
   });
 });
 
@@ -115,6 +103,4 @@ describe('Test the mocks folder', () => {
   });
 });
 
-exports.dom = dom;
-exports.todo = todo;
-exports.interact = interact;
+export default interact;

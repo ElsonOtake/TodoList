@@ -1,7 +1,8 @@
-import { TestEnvironment } from 'jest-environment-jsdom';
 import _ from 'lodash';
-import { interact } from './interact.test.js';
+import interact from './interact.test.js';
+
 const jsdom = require('jsdom');
+
 const { JSDOM } = jsdom;
 const dom = new JSDOM(`
   <!DOCTYPE html>
@@ -63,12 +64,12 @@ const todo = {
     { description: 'do a haircut', completed: false, index: 3 },
     { description: 'walk the dog', completed: true, index: 4 }],
   size: () => 4,
-  changePosition: (a, b) => null,
-  create: (descr) => null,
-  completedChange: (bool, num) => null,
-  update: (descr, num) => null,
-  delete: (num) => null,
-  removeCompleted: () => null
+  changePosition: (a, b) => a || b,
+  create: (descr) => descr,
+  completedChange: (bool, num) => bool || num,
+  update: (descr, num) => descr || num,
+  delete: (num) => num,
+  removeCompleted: () => null,
 };
 
 const dragPosition = (todo) => {
@@ -247,5 +248,5 @@ describe('Test of listTask function', () => {
     expect(todo.tasks[3].index).toBe(4);
     expect(todo.size()).toBe(4);
     expect(todo.create('descr')).toBeNull();
-  })
-})
+  });
+});
