@@ -36,16 +36,16 @@ export default class Tasks {
     localStorage.setItem('todoClass', JSON.stringify(this.tasks));
   }
 
-  changePosition(from, after) {
-    if (from < after) {
+  changePosition(from, before) {
+    if (from < before) {
       this.tasks = [...this.tasks.slice(0, from - 1),
-        ...this.tasks.slice(from, after),
+        ...this.tasks.slice(from, before),
         ...this.tasks.slice(from - 1, from),
-        ...this.tasks.slice(after)];
+        ...this.tasks.slice(before)];
     } else {
-      this.tasks = [...this.tasks.slice(0, after),
+      this.tasks = [...this.tasks.slice(0, before),
         ...this.tasks.slice(from - 1, from),
-        ...this.tasks.slice(after, from - 1),
+        ...this.tasks.slice(before, from - 1),
         ...this.tasks.slice(from)];
     }
     this.resetIndex();
