@@ -1,80 +1,19 @@
 import _ from 'lodash';
 import interact from './interact.test.js';
+import Tasks from './tasks.test.js';
+import { document } from './__mocks__/domMock.js';
 
-const jsdom = require('jsdom');
-
-const { JSDOM } = jsdom;
-const dom = new JSDOM(`
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Todo list</title>
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-  </head>
-  <body>
-
-      <ul>
-          <li>
-              <span>Today's To Do</span>
-              <span class="material-icons-outlined">cached</span>
-          </li>
-          <li class="task_line add_to_list">
-            <input type="text" placeholder="Add to your list...">
-            <span class="material-icons-outlined">keyboard_return</span>
-          </li>
-          <li class="idx1 task_line" id="drg1" draggable="true">
-            <span class="idx1 task_unit">
-              <input class="idx1" type="checkbox">
-              <input type="text" class="idx1 description" readonly="">
-            </span>
-            <span class="idx1 material-icons-outlined delete_outline">delete_outline</span>
-            <span class="idx1 material-icons-outlined more_vert active">more_vert</span>
-          </li>
-          <li class="idx2 task_line" id="drg2" draggable="true">
-            <span class="idx2 task_unit">
-              <input class="idx2" type="checkbox">
-              <input type="text" class="idx2 description" readonly="">
-            </span>
-            <span class="idx2 material-icons-outlined delete_outline">delete_outline</span>
-            <span class="idx2 material-icons-outlined more_vert active">more_vert</span>
-          </li>
-          <li class="idx3 task_line" id="drg3" draggable="true">
-            <span class="idx3 task_unit">
-              <input class="idx3" type="checkbox">
-              <input type="text" class="idx3 description" readonly="">
-            </span>
-            <span class="idx3 material-icons-outlined delete_outline">delete_outline</span>
-            <span class="idx3 material-icons-outlined more_vert active">more_vert</span>
-          </li>
-          <li class="task_line">
-            <p>Clear all completed</p>
-          </li>
-      </ul>
-      
-  </body>
-  </html>
-`);
-
-const todo = {
-  tasks: [
-    { description: 'wash the dishes', completed: false, index: 1 },
-    { description: 'fix car', completed: true, index: 2 },
-    { description: 'do a haircut', completed: false, index: 3 },
-    { description: 'walk the dog', completed: true, index: 4 }],
-  size: () => 4,
-  changePosition: (a, b) => a || b,
-  create: (descr) => descr,
-  completedChange: (bool, num) => bool || num,
-  update: (descr, num) => descr || num,
-  delete: (num) => num,
-  removeCompleted: () => null,
-};
+const todo = new Tasks();
+todo.create('wash the dishes');
+todo.create('fix car');
+todo.create('do the haircut');
+todo.create('walk the dog');
+todo.completedChange(true, 2);
+todo.completedChange(true, 4);
 
 const dragPosition = (todo) => {
-  const liDraggable = dom.window.document.querySelectorAll('li[id^="drg"]');
-  const idxDragging = parseInt(dom.window.document.querySelector('.dragging').classList[0].substring(3), 10);
+  const liDraggable = document.querySelectorAll('li[id^="drg"]');
+  const idxDragging = parseInt(document.querySelector('.dragging').classList[0].substring(3), 10);
   Array.from(liDraggable).forEach((list, idx) => {
     if (list.classList.contains('dragging')) {
       if (idx < idxDragging) {
@@ -87,15 +26,15 @@ const dragPosition = (todo) => {
 };
 
 const listTasks = (todo) => {
-  const ulToDo = dom.window.document.querySelector('ul');
+  const ulToDo = document.querySelector('ul');
 
-  while (dom.window.document.querySelector('.task_line')) {
-    ulToDo.removeChild(dom.window.document.querySelector('.task_line'));
+  while (document.querySelector('.task_line')) {
+    ulToDo.removeChild(document.querySelector('.task_line'));
   }
 
-  const liAddToList = dom.window.document.createElement('li');
+  const liAddToList = document.createElement('li');
   liAddToList.className = 'task_line add_to_list';
-  const inputAddToList = dom.window.document.createElement('input');
+  const inputAddToList = document.createElement('input');
   inputAddToList.type = 'text';
   inputAddToList.placeholder = 'Add to your list...';
   liAddToList.appendChild(inputAddToList);
@@ -105,7 +44,7 @@ const listTasks = (todo) => {
       listTasks(todo);
     }
   });
-  const spanKeyboardReturn = dom.window.document.createElement('span');
+  const spanKeyboardReturn = document.createElement('span');
   spanKeyboardReturn.className = 'material-icons-outlined';
   spanKeyboardReturn.innerText = 'keyboard_return';
   liAddToList.appendChild(spanKeyboardReturn);
@@ -118,13 +57,13 @@ const listTasks = (todo) => {
   ulToDo.appendChild(liAddToList);
 
   _.forEach(todo.tasks, (task) => {
-    const liTaskLine = dom.window.document.createElement('li');
+    const liTaskLine = document.createElement('li');
     liTaskLine.className = `idx${task.index} task_line`;
     liTaskLine.id = `drg${task.index}`;
     liTaskLine.draggable = true;
-    const spanTaskDescr = dom.window.document.createElement('span');
+    const spanTaskDescr = document.createElement('span');
     spanTaskDescr.className = `idx${task.index} task_unit`;
-    const inputCheckBox = dom.window.document.createElement('input');
+    const inputCheckBox = document.createElement('input');
     inputCheckBox.className = `idx${task.index}`;
     inputCheckBox.type = 'checkbox';
     spanTaskDescr.appendChild(inputCheckBox);
@@ -138,7 +77,7 @@ const listTasks = (todo) => {
       }
     });
 
-    const inputDescription = dom.window.document.createElement('input');
+    const inputDescription = document.createElement('input');
     inputDescription.type = 'text';
     inputDescription.className = `idx${task.index} description`;
     inputDescription.value = task.description;
@@ -146,15 +85,15 @@ const listTasks = (todo) => {
     spanTaskDescr.appendChild(inputDescription);
     inputDescription.addEventListener('click', (e) => {
       if (e.target.readOnly && !e.target.previousSibling.checked) {
-        const moreVert = dom.window.document.querySelectorAll('.more_vert');
-        const moreIcon = dom.window.document.querySelector(`.more_vert.idx${e.target.classList[0].substr(3)}`);
+        const moreVert = document.querySelectorAll('.more_vert');
+        const moreIcon = document.querySelector(`.more_vert.idx${e.target.classList[0].substr(3)}`);
         Array.from(moreVert).forEach((icon) => icon.classList.add('active'));
         moreIcon.classList.remove('active');
-        const deleteOutline = dom.window.document.querySelectorAll('.delete_outline');
-        const deleteIcon = dom.window.document.querySelector(`.delete_outline.idx${e.target.classList[0].substr(3)}`);
+        const deleteOutline = document.querySelectorAll('.delete_outline');
+        const deleteIcon = document.querySelector(`.delete_outline.idx${e.target.classList[0].substr(3)}`);
         Array.from(deleteOutline).forEach((icon) => icon.classList.remove('active'));
         deleteIcon.classList.add('active');
-        const descriptionText = dom.window.document.querySelectorAll('.description');
+        const descriptionText = document.querySelectorAll('.description');
         Array.from(descriptionText).forEach((text) => { text.readOnly = true; });
         e.target.readOnly = false;
       }
@@ -175,7 +114,7 @@ const listTasks = (todo) => {
     });
     liTaskLine.appendChild(spanTaskDescr);
 
-    const spanTrashCan = dom.window.document.createElement('span');
+    const spanTrashCan = document.createElement('span');
     spanTrashCan.className = `idx${task.index} material-icons-outlined delete_outline`;
     spanTrashCan.innerText = 'delete_outline';
     liTaskLine.appendChild(spanTrashCan);
@@ -183,7 +122,7 @@ const listTasks = (todo) => {
       todo.delete(parseInt(e.target.classList[0].substr(3), 10));
       listTasks(todo);
     });
-    const spanMoreVert = dom.window.document.createElement('span');
+    const spanMoreVert = document.createElement('span');
     spanMoreVert.className = `idx${task.index} material-icons-outlined more_vert active`;
     spanMoreVert.innerText = 'more_vert';
     liTaskLine.appendChild(spanMoreVert);
@@ -199,8 +138,8 @@ const listTasks = (todo) => {
 
     liTaskLine.addEventListener('dragover', (e) => {
       e.preventDefault();
-      const beforeElement = dom.window.document.querySelector(`#drg${parseInt(e.target.classList[0].substr(3), 10)}`);
-      beforeElement.parentElement.insertBefore(dom.window.document.querySelector('.dragging'), beforeElement);
+      const beforeElement = document.querySelector(`#drg${parseInt(e.target.classList[0].substr(3), 10)}`);
+      beforeElement.parentElement.insertBefore(document.querySelector('.dragging'), beforeElement);
     });
 
     liTaskLine.addEventListener('drop', (e) => {
@@ -210,10 +149,10 @@ const listTasks = (todo) => {
     });
   });
 
-  const liClearAll = dom.window.document.createElement('li');
+  const liClearAll = document.createElement('li');
   liClearAll.classList = 'task_line';
   liClearAll.id = `drg${todo.size() + 1}`;
-  const pClearAll = dom.window.document.createElement('p');
+  const pClearAll = document.createElement('p');
   pClearAll.innerText = 'Clear all completed';
   liClearAll.appendChild(pClearAll);
   pClearAll.addEventListener('click', () => {
@@ -224,8 +163,8 @@ const listTasks = (todo) => {
 
   liClearAll.addEventListener('dragover', (e) => {
     e.preventDefault();
-    const beforeElement = dom.window.document.getElementById(e.target.id);
-    beforeElement.parentElement.insertBefore(dom.window.document.querySelector('.dragging'), beforeElement);
+    const beforeElement = document.getElementById(e.target.id);
+    beforeElement.parentElement.insertBefore(document.querySelector('.dragging'), beforeElement);
   });
 
   liClearAll.addEventListener('drop', (e) => {
@@ -240,13 +179,14 @@ const listTasks = (todo) => {
 describe('Test of listTask function', () => {
   test('Execution of listTask', () => {
     listTasks(todo);
-    expect(dom.window.document.querySelector('#drg5').draggable).toBeFalsy();
-    expect(dom.window.document.querySelector('#drg4').draggable).toBeTruthy();
-    expect(dom.window.document.querySelector('.task_unit input[type=checkbox].idx1').checked).toBeFalsy();
+    expect(document.querySelector('#drg5').draggable).toBeFalsy();
+    expect(document.querySelector('#drg4').draggable).toBeTruthy();
+    expect(document.querySelector('.task_unit input[type=checkbox].idx1').checked).toBeFalsy();
     expect(todo.tasks[0].description).toBe('wash the dishes');
     expect(todo.tasks[1].completed).not.toBeFalsy();
     expect(todo.tasks[3].index).toBe(4);
     expect(todo.size()).toBe(4);
-    expect(todo.create('descr')).toBeNull();
   });
 });
+
+exports.listTasks = listTasks;
