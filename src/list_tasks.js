@@ -89,7 +89,7 @@ const listTasks = (todo) => {
       }
     });
     inputDescription.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' && e.target.value.trim() !== '') {
         todo.update(e.target.value.trim(), parseInt(e.target.classList[0].substr(3), 10));
         e.target.value = e.target.value.trim();
         e.target.readOnly = true;
@@ -97,11 +97,7 @@ const listTasks = (todo) => {
         e.target.parentElement.nextSibling.nextSibling.classList.add('active');
       }
     });
-    inputDescription.addEventListener('input', (e) => {
-      if (e.target.value.trim() === '') {
-        listTasks(todo);
-      }
-    });
+
     liTaskLine.appendChild(spanTaskDescr);
 
     const spanTrashCan = document.createElement('span');
