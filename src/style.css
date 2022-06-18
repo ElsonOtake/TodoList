@@ -26,6 +26,10 @@ li:first-child {
   border-top: none;
 }
 
+li:first-child span:last-child {
+  display: none;
+}
+
 li:nth-child(2) {
   padding: 0 20px 0 0;
 }
