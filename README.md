@@ -18,7 +18,7 @@ The user is able to reorder the list by dragging each item, and moving it into t
 - npm
 
 
-## Live Demo (if available)
+## Live Demo
 
 [Live Demo](https://elsonotake.github.io/TodoList/dist/)
 
@@ -88,4 +88,4 @@ Give a ⭐️ if you like this project!
 
 ## 📝 License
 
-This project is [MIT](https://github.com/ElsonOtake/) licensed.
+This project is [MIT](./MIT.md) licensed.
